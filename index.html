@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магічна куля</title>
+    <style>
+body {
+    margin: 0;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background: linear-gradient(135deg, #4c669f, #3b5998, #192f6a); /* Градиент от синего к темному */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: white;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.container {
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.7); /* Прозрачный черный фон */
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+input {
+    font-size: 18px;
+    width: 80%;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border: 2px solid #6da9c1;
+    border-radius: 10px;
+    outline: none;
+    background: #f4f4f4;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    border-color: #2196f3;
+    background: #ffffff;
+    box-shadow: inset 0 0 8px rgba(33, 150, 243, 0.6);
+}
+
+.input-message {
+    font-size: 16px;
+    margin: 10px 0;
+    color: #ff6347; /* Красный для ошибок */
+    height: 20px;
+}
+
+.ball {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffeb3b, #fbc02d); /* Градиент желтых оттенков */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), inset 0 0 30px rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+.ball:hover {
+    transform: scale(1.1);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7), inset 0 0 40px rgba(255, 255, 255, 0.5);
+}
+
+.answer-text {
+    font-size: 22px;
+    text-align: center;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.6); /* Прозрачный черный круг */
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.3);
+    color: white;
+    transition: transform 0.4s ease;
+}
+
+.answer-text.animate {
+    transform: scale(1.2);
+}
+
+@keyframes ballPulse {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 50px rgba(255, 255, 255, 0.9);
+    }
+}
+
+.ball {
+    animation: ballPulse 2s infinite;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="text" id="question" placeholder="Введіть ваше питання...">
+        <div id="inputMessage" class="input-message"></div>
+        <div class="ball" id="magicBall">
+            <div class="answer-text" id="answerText">Запитайте у кулі</div>
+        </div>
+    </div>
+    <script>
+        const ball = document.getElementById('magicBall');
+        const answerText = document.getElementById('answerText');
+        const inputMessage = document.getElementById('inputMessage');
+        const questionInput = document.getElementById('question');
+
+        const answers = ['Так', 'Ні', 'Можливо', 'Запитайте пізніше', 'Однозначно', 'Малоймовірно'];
+
+        function getRandomAnswer() {
+            const randomIndex = Math.floor(Math.random() * answers.length);
+            return answers[randomIndex];
+        }
+
+        ball.addEventListener('click', () => {
+            const question = questionInput.value.trim();
+            if (!question) {
+                inputMessage.textContent = 'Будь ласка, введіть ваше питання!';
+                return;
+            }
+            inputMessage.textContent = '';
+            answerText.textContent = getRandomAnswer();
+
+            setTimeout(() => {
+                answerText.textContent = 'Запитайте у кулі';
+            }, 3000); // Сбрасываем текст через 3 секунды
+        });
+    </script>
+</body>
+</html>
